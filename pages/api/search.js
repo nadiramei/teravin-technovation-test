@@ -12,7 +12,4 @@ export default async function searchHandler(req, res){
         });
         res.send(result);
     }
-    if (method === "GET"){
-        res.send("tt");
-    }   
 }
