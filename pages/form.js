@@ -1,5 +1,6 @@
 import { useState } from "react"
 import axios from 'axios';
+import Head from 'next/head'
 
 export default function Form(){
     var [name, setName] = useState();
@@ -25,11 +26,6 @@ export default function Form(){
                 }
             });
         }
-
-        console.log("Name:", name);
-        console.log("Phone Number:", phoneNumber);
-        console.log("Email:", email);
-        console.log("Address:", addresses);
     }
 
     function handleAddressChange(index, event) {
@@ -40,6 +36,11 @@ export default function Form(){
 
     return (
         <div className="form">
+            <Head>
+                <title>User Form App</title>
+                <meta name="description" content="user form app created for Teravin Technovation's developer test" />
+            </Head>
+            <h2>Create User</h2>
             {name && name.length > 50 && <p>Please do not insert more than 50 characters in your name field.</p>}
             {phoneNumber && (phoneNumber.length < 10 || !/^[0-9]+$/.test(phoneNumber)) && <p>Please insert a valid phone number.</p>}
             {email && !/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(email) && <p>Please enter a valid email address.</p>}
@@ -79,13 +80,14 @@ export default function Form(){
                 {addresses.map((address, index) => (
                     <div key={index}>
                         <input
+                            className="address"
                             type="text"
                             value={address}
                             onChange={(event) => handleAddressChange(index, event)}
                             required
                         />
                         {index > 0 ?
-                        <button onClick={() => {
+                        <button className="button-square" onClick={() => {
                             if(addresses.length > 1) {
                               const newAddresses = [...addresses];
                               newAddresses.splice(index, 1);
@@ -93,16 +95,16 @@ export default function Form(){
                             }
                          }}>-</button>
                         :
-                        <button onClick={() => setAddresses([...addresses, ''])}>+</button>
+                        <button className="button-square" onClick={() => setAddresses([...addresses, ''])}>+</button>
                         }
                         
                     </div>
                 ))}
             </label>
 
-            <div>
-                <button onClick={() => window.history.back()}>Back</button>
-                <button type="submit" onClick={submit}>Create</button>
+            <div className="space-between">
+                <button className="button-secondary" onClick={() => window.history.back()}>🠔 Back</button>
+                <button className="button-secondary" type="submit" onClick={submit}>Create 🠖</button>
             </div>
             
         </div>

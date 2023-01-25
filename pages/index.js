@@ -20,7 +20,6 @@ export default function Home() {
     })
   }
 
-
   const handleSort = (column) => {
       if (sortColumn === column) {
           setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
@@ -55,16 +54,19 @@ export default function Home() {
       <main>
         {data.length > 0 ?
           <div>
+            <h2>List User</h2>
             <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder="Search..." />
-            <button onClick={handleSearchSubmit}>Search</button>
+            <button className='button-square' onClick={handleSearchSubmit}>🔎︎</button>
             <table>
               <thead>
                   <tr>
                     <th onClick={() => handleSort('name')}>
-                      Name ⇵
+                      Name
+                      {sortColumn === 'name' ? (sortOrder === 'asc' ? '🠕' : '🠗') : "⇵"}
                     </th>
                     <th onClick={() => handleSort('email')}>
-                      Email ⇵
+                      Email
+                      {sortColumn === 'email' ? (sortOrder === 'asc' ? '🠕' : '🠗') : "⇵"}
                     </th>
                   </tr>
               </thead>
@@ -77,13 +79,14 @@ export default function Home() {
                   ))}
               </tbody>
             </table>
-            {filteredData.length < 1 && <span>The data you're looking for does not exist<br/></span>}
-            <button onClick={() => window.location.href = "http://localhost:3000/form"}>Add</button>
+            {filteredData.length < 1 && <span>The data you're looking for <br/>does not exist<br/></span>}
+              
+            <button className='button-primary' onClick={() => window.location.href = "http://localhost:3000/form"}>Add</button>
           </div>
           :
           <div className='center-text'>
-            <p>There are currently no data. Create new data by clicking the ADD button below.</p>
-            <button onClick={() => window.location.href = "http://localhost:3000/form"}>Add</button>
+            <p>There are currently no data. Create new data by clicking the button below.</p>
+            <button className='button-primary' onClick={() => window.location.href = "http://localhost:3000/form"}>Add</button>
           </div>
         }
       </main>
